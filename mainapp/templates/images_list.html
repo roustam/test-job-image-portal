@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Загруженные изображения</title>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+    <script src="{% static 'jquery-2.2.4.min.js' %}" charset="utf-8"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+  </head>
+  <body>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+          $('#full-image').click(function(event) {
+            $(this).removeClass('full-image--opened')
+            $('#full-image img').attr({src: ''});
+          });
+
+          $('.image img').click(function(event) {
+            // detect data-id for later
+            var id = $(this).data('id');
+            // grab src to replace #featured
+            var src = $(this).attr('src');
+            // set featured image
+            var img = $('#full-image img');
+            img.fadeOut('fast', function() {
+              $(this).attr({src: src,});
+              $(this).fadeIn('fast');
+            });
+            $('#full-image').addClass('full-image--opened')
+          });
+        });
+      </script>
+    <h1>Список загруженных изображений</h1>
+    <a href="{% url 'upload-view' %}">Перейти к странице загрузки изображений</a>
+    {% if images_list %}
+
+
+
+
+    <div class="container">
+    			<div class="gallery">
+            <div class="full-image" id="full-image">
+    					<img />
+    				</div>
+            <div class="gallery-images">
+    				{% for image_record in images_list %}
+            <div class="image">
+                <img src="media/{{image_record.img_file}}" data-id="{{image_record.id}}">
+                <span class='image-comment'>{{image_record.img_comment}}</span>
+            </div>
+            {% endfor %}
+    			</div>
+    				<div class="clear clearfix"></div>
+    	</div>
+{% else %}
+    <p>Список пуст. Еще никто не загрузил ни одного изображения.</p>
+{% endif %}
+  </body>
+</html>
