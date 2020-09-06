@@ -11,5 +11,8 @@ def validate_file_extension(value):
 
 class MyForm(forms.Form):
     comment = forms.CharField(label='Коментарий к изображению', max_length=100)
-    file_path = forms.FileField(label='выберите файл для загрузки', required=True,\
-                                validators=[validate_file_extension], allow_empty_file=False )
+
+    file_path = forms.FileField(allow_empty_file=False,label='выберите файл для загрузки',\
+                                validators=[validate_file_extension], widget=forms.ClearableFileInput(\
+                                attrs={'label':'Прикрепите файл изображения','multiple': False, 'accept':'image/*'}))
+
