@@ -1,5 +1,15 @@
 from django import forms
+from django.core.exceptions import ValidationError
+import os
+
+def validate_file_extension(value):
+    ext = os.path.splitext(value.name)[1]
+    # Разрешенные типы файлов
+    valid_extensions = ['.jpg', '.png','.gif','.jpeg','.svg']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError(u'Unsupported file extension.')
 
 class MyForm(forms.Form):
     comment = forms.CharField(label='Коментарий к изображению', max_length=100)
-    file_path = forms.FileField(label='выберите файл для загрузки', required=True, allow_empty_file=False )
+    file_path = forms.FileField(label='выберите файл для загрузки', required=True,\
+                                validators=[validate_file_extension], allow_empty_file=False )

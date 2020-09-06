@@ -13,17 +13,15 @@ def upload_view(request):
         if image_form.is_valid():
             uploaded_file=request.FILES['file_path']
             print('file type', uploaded_file.content_type)
-            if uploaded_file.content_type[:5] == 'image': #dirty hack
-                new_record = ImageModel.objects.create(
-                img_comment = request.POST['comment'],
-                img_file = request.FILES['file_path']
-                )
-                new_record.save()
-            else:
-                return HttpResponse("Ошибка. Разрешено загружать только файлы изображений.")
+            new_record = ImageModel.objects.create(
+            img_comment = request.POST['comment'],
+            img_file = request.FILES['file_path']
+            )
+            new_record.save()
         else:
-            return HttpResponse("Ошибка формы. Форма не валидна.")
-            #print('form is not valid')
+            return HttpResponse("Ошибка.Можно загружать только файлы изображений.\
+                                Загрузка файлов этого типа запрещена.")
+
         return render(request,'upload_form.html', {'form':image_form})
 
 def images_list_view(request):
