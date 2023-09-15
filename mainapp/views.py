@@ -19,8 +19,7 @@ def upload_view(request):
             )
             new_record.save()
         else:
-            return HttpResponse("Ошибка.Можно загружать только файлы изображений.\
-                                Загрузка файлов этого типа запрещена.")
+            return HttpResponse("This file type is not allowed.")
 
         return render(request,'upload_form.html', {'form':image_form})
 
@@ -29,4 +28,4 @@ def images_list_view(request):
         images_list = ImageModel.objects.all()
         return render(request,'images_list.html', {'images_list':images_list})
     else:
-        return HttpResponse("Post-метод не разрешен.")
+        return HttpResponse("Post method not allowed.")

@@ -3,20 +3,21 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Страница загрузки изображений</title>
+    <title>Image uploads webpage</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
   </head>
   <body>
-    <h1>Страница загрузки изображений</h1>
-    <a href="{% url "images_list_view" %}">Перейти к списку загруженных изображений</a>
+    <h1>Image uploads webpage</h1>
+    <a href="{% url "images_list_view" %}">Switch to uploaded image page</a>
 
     <form class="" action="{% url "upload-view" %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ message }}
       {{ form.as_p }}
 
-      <p><input type="submit" value="Отправить"/></p>
+      <p><input type="submit" value="Upload"/></p>
     </form>
-    <p>Загружать можно только файлы изображений.</p>
+    <p>Only image files are accepted for uploading.</p>
+    <p>Website accepts jpg, png, gif, jpeg, svg files only.</p>
   </body>
 </html>
