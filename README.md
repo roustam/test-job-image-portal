@@ -1,8 +1,10 @@
 # test-job-image-portal
-Тестовое задание.
+This is a test job project.
 
-После клонирования репозитория, установите Django==3.1.1   
-Для инициализации БД, используйте следующие команды:  
+Install Django==3.1.1 after cloning.
+Init DB with next commands:  
 python manage.py makemigrations mainapp    
 python manage.py migrate
 
+Web app has two views with image list and upload form.
+Website accepts jpg, png, gif, jpeg, svg files only.
